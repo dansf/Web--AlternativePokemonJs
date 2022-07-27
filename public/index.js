@@ -85,6 +85,13 @@ const btnSend = document
   .querySelector('.btn-infos')
   .addEventListener('click', async () => {
     // console.log(valuesReceived);
+    const divFav = document.createElement("div")
+    const pFavOne = document.createElement("p")
+    const pFavTwo = document.createElement("p")
+    document.querySelector(".favorites").append(divFav);
+    divFav.append(pFavOne, pFavTwo);
+    pFavOne.textContent = valuesReceived.latitude;
+    pFavTwo.textContent = valuesReceived.longitude;
     await sendToDB(valuesReceived);
   });
 
