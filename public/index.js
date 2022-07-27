@@ -5,6 +5,8 @@ if (!('geolocation' in navigator)) {
   console.log('Geolocation unaveliable.');
 }
 
+var flagBox = true;
+
 const appendInfos = (lat, lon) => {
   const date = new Date();
   const dateNow = date.getDate();
@@ -25,7 +27,7 @@ const appendInfos = (lat, lon) => {
   pThree.append(spanDate);
   pThree.append(spanHour);
   box.append(pThree);
-  update.append(box);
+  update.prepend(box);  
 
   const color = getColors();
 

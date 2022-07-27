@@ -82,18 +82,18 @@ body {
   height: 80vh;
   padding: 1rem;
   overflow: scroll;
-  display: grid;
-  gap: 1rem;
 }
 
 .box {
   height: fit-content;
   border-radius: 20px;
   padding: .5rem;
+  margin-bottom: 1rem;
 }
 
 .box p {
   font-size: 1.2rem;
+  color: white;
 }
 
 .box p:nth-child(3),
@@ -102,4 +102,5 @@ body {
   font-weight: 500;
   padding: 0.5rem 0 0;
   text-align: end;
+  color: white;
 }
