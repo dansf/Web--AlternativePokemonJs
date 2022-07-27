@@ -81,18 +81,25 @@ body {
   border-radius: 20px;
   height: 80vh;
   padding: 1rem;
+  overflow: scroll;
+  display: grid;
+  gap: 1rem;
 }
 
 .box {
+  height: fit-content;
+  border-radius: 20px;
+  padding: .5rem;
 }
 
 .box p {
   font-size: 1.2rem;
 }
 
-.box p:nth-child(3){
-  font-size: .800rem;
+.box p:nth-child(3),
+.boxThree {
+  font-size: 0.8rem;
   font-weight: 500;
-  padding: .5rem 0 0;
+  padding: 0.5rem 0 0;
   text-align: end;
 }

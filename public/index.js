@@ -1,22 +1,9 @@
 const API_URL = 'https://api.wheretheiss.at/v1/satellites/25544';
+const API_COLOR = 'https://www.colr.org/json/scheme/random';
 
 if (!('geolocation' in navigator)) {
   console.log('Geolocation unaveliable.');
 }
-
-const update = document.querySelector('.update');
-const box = document.createElement('div');
-const pOne = document.createElement('p');
-const pTwo = document.createElement('p');
-const pThree = document.createElement('p');
-const spanDate = document.createElement('span');
-const spanHour = document.createElement('span');
-box.append(pOne);
-box.append(pTwo);
-pThree.append(spanDate);
-pThree.append(spanHour);
-box.append(pThree);
-update.append(box);
 
 const appendInfos = (lat, lon) => {
   const date = new Date();
@@ -26,27 +13,49 @@ const appendInfos = (lat, lon) => {
   const hourNow = date.getHours();
   const minutesNow = date.getMinutes();
 
-  // pOne.classList.add('.lat');
+  const update = document.querySelector('.update');
+  const box = document.createElement('div');
+  const pOne = document.createElement('p');
+  const pTwo = document.createElement('p');
+  const pThree = document.createElement('p');
+  const spanDate = document.createElement('span');
+  const spanHour = document.createElement('span');
+  box.append(pOne);
+  box.append(pTwo);
+  pThree.append(spanDate);
+  pThree.append(spanHour);
+  box.append(pThree);
+  update.append(box);
+
+  const color = getColors();
+
+  box.classList.add('box');
+  box.style.backgroundColor = color;
+  pThree.classList.add('boxThree');
+
   pOne.textContent = `Latitude: ${lat.toFixed(2)}°`;
-
-  // pTwo.classList('.lon');
   pTwo.textContent = `Longitude: ${lon.toFixed(2)}°`;
-
-  // spanDate.classList.add('.date');
-  spanDate.textContent = `${dateNow}/0${monthNow + 1}/${yearNow}`;
-
-  // spanHour.classList.add('.hour');
+  spanDate.textContent = `${dateNow}/0${monthNow + 1}/${yearNow} - `;
   spanHour.textContent = `${hourNow}:${minutesNow}`;
 };
 
+const getColors = () => {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 const getSateliteData = async () => {
-  let dataSatelite = await fetch(API_URL);
-  let resSatelite = await dataSatelite.json();
+  const dataSatelite = await fetch(API_URL);
+  const resSatelite = await dataSatelite.json();
   return resSatelite;
 };
 
 const sendToDB = async data => {
-  let options = {
+  const options = {
     method: 'POST',
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },

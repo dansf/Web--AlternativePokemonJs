@@ -15,7 +15,6 @@ dataBase.loadDatabase();
 
 app.post('/api', (req, res) => {
   const { latitude, longitude } = req.body;
-  console.log(`${latitude}, ${longitude}`);
   const date = new Date();
   const dateNow = date.getDate();
   const monthNow = date.getMonth();
@@ -24,8 +23,8 @@ app.post('/api', (req, res) => {
   const minutesNow = date.getMinutes();
 
   const dataToSave = {
-    Latitude: latitude,
-    Longitude: longitude,
+    Latitude: latitude.toFixed(2),
+    Longitude: longitude.toFixed(2),
     date: dateNow,
     month: `0${monthNow + 1}`,
     year: yearNow,
@@ -53,3 +52,7 @@ app.get('/api', (req, res) => {
     res.json(data);
   });
 });
+
+app.get("/color", (req, res) => {
+
+})
