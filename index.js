@@ -1,5 +1,6 @@
 import express from 'express';
 import DataStore from 'nedb';
+import fetch from 'node-fetch';
 
 const PORT = process.env.PORT || 3000;
 const LOCALHOST = process.env.LOCALHOST || 'http://localhost';
@@ -53,6 +54,16 @@ app.get('/api', (req, res) => {
   });
 });
 
-app.get("/color", (req, res) => {
-
-})
+app.get('/weather/:lat,:lon', async (req, res) => {
+  try {
+    const { lat, lon } = req.params;
+    // console.log(lat);
+    // console.log(lon);
+    const API_WEATHER = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=79148cbe05851f57e4c568432fc50aa6`;
+    const resWeather = await fetch(API_WEATHER);
+    const jsonWeather = await resWeather.json();
+    res.json(jsonWeather);
+  } catch (e) {
+    console.log(e);
+  }
+});

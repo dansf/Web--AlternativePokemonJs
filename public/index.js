@@ -1,5 +1,5 @@
 const API_URL = 'https://api.wheretheiss.at/v1/satellites/25544';
-const API_COLOR = 'https://www.colr.org/json/scheme/random';
+// const API_WEATHER = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}';
 
 if (!('geolocation' in navigator)) {
   console.log('Geolocation unaveliable.');
@@ -27,7 +27,7 @@ const appendInfos = (lat, lon) => {
   pThree.append(spanDate);
   pThree.append(spanHour);
   box.append(pThree);
-  update.prepend(box);  
+  update.prepend(box);
 
   const color = getColors();
 
@@ -68,12 +68,24 @@ const sendToDB = async data => {
   const resFetch = await dataFetch.json();
 };
 
+const getWeatherData = async (latitude, longitude) => {
+  const API_WEATHER = `/weather/${latitude},${longitude}`;
+  const resWeather = await fetch(API_WEATHER);
+  const jsonWeather = await resWeather.json();
+  console.log(jsonWeather)
+};
+
 var valuesReceived = {};
 
 const sateliteData = async () => {
   try {
+    //! LIMITE DE REQUISIÇÔES: 3*24 = 72 + 1 = 73
+    //TODO: Criar método para pegar a localização atual com computador e saber a temperatura
     const { latitude, longitude } = await getSateliteData();
+    // getWeatherData(latitude, longitude);
+    //TODO: Colocar o a Temperatura e local do satélite para aparecer na página
     appendInfos(latitude, longitude);
+    //TODO: Acrescentar os atributos de temperatura e de local no objeto data
     const data = { latitude, longitude };
     valuesReceived = data;
   } catch (e) {
@@ -84,14 +96,16 @@ const sateliteData = async () => {
 const btnSend = document
   .querySelector('.btn-infos')
   .addEventListener('click', async () => {
-    // console.log(valuesReceived);
-    const divFav = document.createElement("div")
-    const pFavOne = document.createElement("p")
-    const pFavTwo = document.createElement("p")
-    document.querySelector(".favorites").append(divFav);
+    const divFav = document.createElement('div');
+    const pFavOne = document.createElement('p');
+    const pFavTwo = document.createElement('p');
+    const favorite = document.querySelector('.favorites')
+    favorite.append(divFav);
     divFav.append(pFavOne, pFavTwo);
-    pFavOne.textContent = valuesReceived.latitude;
-    pFavTwo.textContent = valuesReceived.longitude;
+    divFav.classList.add('box-favorite');
+    pFavOne.textContent = `Lat.: ${valuesReceived.latitude.toFixed(2)}°`;
+    pFavTwo.textContent = `Lon.: ${valuesReceived.longitude.toFixed(2)}°`;
+    //? Mudar para síncrono
     await sendToDB(valuesReceived);
   });
 
@@ -103,4 +117,14 @@ const btnGet = document
     console.log(resData);
   });
 
-window.setInterval(sateliteData, 5000);
+var counterCalls = 0;
+const callsAPI = () => {
+  //TODO: Salvar localmente ou no servidor a quantidade de calls
+  sateliteData();
+  counterCalls += 1;
+  console.log(counterCalls);
+};
+
+// callsAPI();
+window.setInterval(callsAPI,5000);
+// window.setInterval(callsAPI,1800000);
