@@ -72,7 +72,7 @@ const getWeatherData = async (latitude, longitude) => {
   const API_WEATHER = `/weather/${latitude},${longitude}`;
   const resWeather = await fetch(API_WEATHER);
   const jsonWeather = await resWeather.json();
-  console.log(jsonWeather)
+  console.log(jsonWeather);
 };
 
 var valuesReceived = {};
@@ -99,7 +99,7 @@ const btnSend = document
     const divFav = document.createElement('div');
     const pFavOne = document.createElement('p');
     const pFavTwo = document.createElement('p');
-    const favorite = document.querySelector('.favorites')
+    const favorite = document.querySelector('.favorites');
     favorite.append(divFav);
     divFav.append(pFavOne, pFavTwo);
     divFav.classList.add('box-favorite');
@@ -125,6 +125,6 @@ const callsAPI = () => {
   console.log(counterCalls);
 };
 
-// callsAPI();
-window.setInterval(callsAPI,5000);
+callsAPI();
+// window.setInterval(callsAPI, 5000);
 // window.setInterval(callsAPI,1800000);

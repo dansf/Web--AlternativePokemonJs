@@ -1,6 +1,4 @@
 node_modules
 public/legacy
 .env
-.editorconfig
-.eslintrc.json
 database.db
