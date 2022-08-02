@@ -8,6 +8,6 @@
   "htmlWhitespaceSensitivity": "strict",
   "bracketSameLine": false,
   "tabWidth": 2,
-  "trailingComma": "es5",
+  "trailingComma": "all",
   "endOfLine": "lf"
 }

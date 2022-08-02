@@ -1,6 +1,6 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import DataStore from 'nedb';
-import fetch from 'node-fetch';
+// import dotenv from 'dotenv/config';
 
 const PORT = process.env.PORT || 3000;
 const LOCALHOST = process.env.LOCALHOST || 'http://localhost';
@@ -14,7 +14,7 @@ app.use(express.json({ limit: '5mb' }));
 const dataBase = new DataStore('database.db');
 dataBase.loadDatabase();
 
-app.post('/api', (req, res) => {
+app.post('/api', (req: Request, res: Response) => {
   const { latitude, longitude } = req.body;
   const date = new Date();
   const dateNow = date.getDate();
@@ -44,8 +44,8 @@ app.post('/api', (req, res) => {
   });
 });
 
-app.get('/api', (req, res) => {
-  dataBase.find({}, (e, data) => {
+app.get('/api', (req: Request, res: Response) => {
+  dataBase.find({}, (e: Error, data: any) => {
     if (e) {
       console.log(`Error: ${e}`);
       return;
@@ -54,11 +54,14 @@ app.get('/api', (req, res) => {
   });
 });
 
-app.get('/weather/:lat,:lon', async (req, res) => {
+app.get('/weather/:latlon', async (req: Request, res: Response) => {
   try {
-    const { lat, lon } = req.params;
+    const dataInfoReq = req.params.latlon.split(',');
+    // console.log(dataInfoReq);
+    const latitude = dataInfoReq[0];
+    const longitude = dataInfoReq[1];
     //! Colocar a API_KEY quando for usar
-    const API_WEATHER = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${process.env.API_KEY}`;
+    const API_WEATHER = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=79148cbe05851f57e4c568432fc50aa6`;
     const resWeather = await fetch(API_WEATHER);
     const jsonWeather = await resWeather.json();
     res.json(jsonWeather);

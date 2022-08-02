@@ -1,2 +1,5 @@
 /**/*.js
 /**/*.json
+node_modules
+dist
+/*.js

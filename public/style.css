@@ -203,6 +203,7 @@ body {
   border-radius: 20px;
   height: 20rem;
   border: 0.5px solid #4e4e4e;
+  overflow-y: hidden;
 }
 
 @media (min-width: 768px) {
@@ -211,4 +212,47 @@ body {
     grid-row: 1;
     margin-top: 4rem;
   }
+}
+
+.weather > h2 {
+}
+
+.user {
+  display: grid;
+  grid-template-columns: 1fr 0.75fr;
+  row-gap: 0.5rem;
+  margin-top: 1rem;
+  /* border: 1px solid red; */
+}
+
+.text {
+  grid-column: 1;
+  align-self: center;
+}
+
+.text h2 {
+  font-size: 2.5rem;
+}
+
+.text h3 {
+  font-size: 1.3rem;
+}
+
+.weather-box-icon {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.weather-icon {
+  font-size: 5rem !important;
+}
+
+.desc {
+  grid-column: span 2;
+}
+
+.desc p {
+  font-size: 0.868rem;
+  font-weight: 500;
 }

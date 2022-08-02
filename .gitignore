@@ -1,4 +1,26 @@
+# Cache files  
+.eslintcache
+.npm
+*.tsbuildinfo
+
+# Directories
+dist/           # This is the build process will output code.
+node_modules/   # The original reason we're here!
 node_modules
-public/legacy
-.env
+node_modules/**
+
+# Env files      # A good safeguard against accidentally publishing
+.env.           #  private information, including security keys
+.env.test
+
+# Database
 database.db
+
+# Logs
+*.log
+logs
+npm-debug.log*
+
+# Misc files
+.DS_Store       # Macs often create this file
+notes.md        # Personal project notes, not my reference.
