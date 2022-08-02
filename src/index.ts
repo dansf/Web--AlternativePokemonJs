@@ -57,14 +57,14 @@ app.get('/api', (req: Request, res: Response) => {
 app.get('/weather/:latlon', async (req: Request, res: Response) => {
   try {
     const dataInfoReq = req.params.latlon.split(',');
-    // console.log(dataInfoReq);
-    const latitude = dataInfoReq[0];
-    const longitude = dataInfoReq[1];
+    console.log(dataInfoReq);
+    // const latitude = dataInfoReq[0];
+    // const longitude = dataInfoReq[1];
     //! Colocar a API_KEY quando for usar
-    const API_WEATHER = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=79148cbe05851f57e4c568432fc50aa6`;
-    const resWeather = await fetch(API_WEATHER);
-    const jsonWeather = await resWeather.json();
-    res.json(jsonWeather);
+    // const API_WEATHER = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
+    // const resWeather = await fetch(API_WEATHER);
+    // const jsonWeather = await resWeather.json();
+    // res.json(jsonWeather);
   } catch (e) {
     console.log(e);
   }
