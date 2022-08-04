@@ -10,7 +10,7 @@ node_modules
 node_modules/**
 
 # Env files      # A good safeguard against accidentally publishing
-.env.           #  private information, including security keys
+.env             #  private information, including security keys
 .env.test
 
 # Database
