@@ -54,17 +54,13 @@ app.get('/api', (req: Request, res: Response) => {
   });
 });
 
-app.get('/weather/:latlon', async (req: Request, res: Response) => {
+app.get('/poke', async (req: Request, res: Response) => {
   try {
-    const dataInfoReq = req.params.latlon.split(',');
-    console.log(dataInfoReq);
-    // const latitude = dataInfoReq[0];
-    // const longitude = dataInfoReq[1];
-    //! Colocar a API_KEY quando for usar
-    // const API_WEATHER = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
-    // const resWeather = await fetch(API_WEATHER);
-    // const jsonWeather = await resWeather.json();
-    // res.json(jsonWeather);
+    const API_POKEMON = `https://pokeapi.co/api/v2/pokemon/?limit=1154`;
+    const resPoke = await fetch(API_POKEMON);
+    const jsonPoke = await resPoke.json();
+    // console.log(jsonPoke);
+    res.json(jsonPoke);
   } catch (e) {
     console.log(e);
   }

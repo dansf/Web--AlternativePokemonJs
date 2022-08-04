@@ -1,84 +1,88 @@
 const API_URL = 'https://api.wheretheiss.at/v1/satellites/25544';
-// const API_WEATHER = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}';
 
-if (!('geolocation' in navigator)) {
-  window.alert('Geolocation unaveliable.');
-  console.log('Geolocation unaveliable.');
-}
+// if (!('geolocation' in navigator)) {
+//   window.alert('Geolocation unaveliable.');
+//   console.log('Geolocation unaveliable.');
+// }
 
-navigator.geolocation.getCurrentPosition(async position => {
-  const latitudeUser = position.coords.latitude;
-  const longitudeUser = position.coords.longitude;
+const coloursPokemonType = {
+  normal: '#A8A77A',
+  fire: '#EE8130',
+  water: '#6390F0',
+  electric: '#F7D02C',
+  grass: '#7AC74C',
+  ice: '#96D9D6',
+  fighting: '#C22E28',
+  poison: '#A33EA1',
+  ground: '#E2BF65',
+  flying: '#A98FF3',
+  psychic: '#F95587',
+  bug: '#A6B91A',
+  rock: '#B6A136',
+  ghost: '#735797',
+  dragon: '#6F35FC',
+  dark: '#705746',
+  steel: '#B7B7CE',
+  fairy: '#D685AD',
+};
 
-  try {
-    const data = await getWeatherData(latitudeUser, longitudeUser);
-    // console.log(data.current.temp);
-    displayUserData(data);
-  } catch (e) {
-    console.log(`${e}`);
+const getPokemon = async () => {
+  const maxPokemons = 1154;
+  const randomPoke = Math.random() * maxPokemons;
+
+  const pokeData = await fetch('/poke');
+  const pokeDataRes = await pokeData.json();
+  const pokeInfo = await fetch(pokeDataRes.results[randomPoke.toFixed(0)].url);
+  const pokeInfoRes = await pokeInfo.json();
+
+  const Pokemon = {
+    name: pokeInfoRes.name,
+    type: pokeInfoRes.types,
+    abilities: pokeInfoRes.abilities,
+  };
+
+  return Pokemon;
+};
+
+const backgroundType = (mainDiv, type) => {
+  for (const typePoke in coloursPokemonType) {
+    if (type == typePoke) {
+      console.log(`Tipo enviado: ${type} | Tipo da lista: ${typePoke}`)
+      mainDiv.style.backgroundColor = coloursPokemonType[typePoke];
+    }
   }
-  // displayUserData(data.)
-});
+};
 
-const displayUserData = data => {
+const displayUserData = async () => {
+  const pokemon = await getPokemon();
+  console.log(pokemon);
+
   const container = document.createElement('div');
-  document.querySelector('.weather').append(container);
+  const mainDiv = document.querySelector('.weather');
+  mainDiv.append(container);
   container.classList.add('user');
 
   const text = document.createElement('div');
   text.classList.add('text');
   const h2 = document.createElement('h2');
-  const h3 = document.createElement('h3');
-  text.append(h2, h3);
-  h2.textContent = `${data.current.temp}°C`;
-  h3.textContent = data.timezone;
 
-  const weather = document.createElement('div');
-  const span = document.createElement('span');
-  weather.classList.add('weather-box-icon');
-  weather.append(span);
-  span.classList.add('material-symbols-rounded', 'weather-icon');
-  const typeIcon = [
-    'cloudy',
-    'sunny',
-    'partly_cloudy_night',
-    'partly_cloudy_day',
-    'thunderstorm',
-    'air',
-    'clear_night',
-    'rainy',
-  ];
-  switch (data.current.weather[0].main) {
-    case 'Clouds':
-      span.textContent = typeIcon[3];
-      break;
+  const pokeTypesContainer = document.createElement('div');
+  pokeTypesContainer.classList.add('pokeTypes');
+  h2.textContent = `${pokemon.name}`;
+  const ul = document.createElement('ul');
+  pokeTypesContainer.append(ul);
 
-    case 'Clear':
-      span.textContent = typeIcon[1];
-      break;
-
-    case "Rain":
-      span.textContent = typeIcon[7];
-      break;
-
-    case "Thunderstorm":
-      span.textContent = typeIcon[4];
-      break;
-
-    default:
-      span.textContent = typeIcon[1];
-      break;
+  for (let i = 0; i < pokemon.type.length; i++) {
+    const li = document.createElement('li');
+    li.textContent = `${pokemon.type[i].type.name}`;
+    ul.append(li);
   }
 
-  const desc = document.createElement('div');
-  const p = document.createElement('p');
-  desc.append(p);
-  p.textContent = `Funcionando!`;
+  backgroundType(mainDiv, pokemon.type[0].type.name);
 
-  container.append(text, weather, desc);
+  text.append(h2, pokeTypesContainer);
+  container.append(text);
 };
-
-var flagBox = true;
 
 const appendInfos = (lat, lon) => {
   const date = new Date();
@@ -102,10 +106,8 @@ const appendInfos = (lat, lon) => {
   box.append(pThree);
   update.prepend(box);
 
-  const color = getColors();
-
   box.classList.add('box');
-  box.style.backgroundColor = color;
+  box.style.backgroundColor = getColors();
   pThree.classList.add('boxThree');
 
   pOne.textContent = `Latitude: ${lat.toFixed(2)}°`;
@@ -138,28 +140,14 @@ const sendToDB = async data => {
 
   //* Fetch abaixo representa o envio das informações através do caminho "/api"
   fetch('/api', options);
-  // const dataFetch = await fetch('/api', options);
-  // const resFetch = await dataFetch.json();
-};
-
-const getWeatherData = async (latitude, longitude) => {
-  const API_WEATHER = `/weather/${latitude},${longitude}`;
-  const resWeather = await fetch(API_WEATHER);
-  const jsonWeather = await resWeather.json();
-  return jsonWeather;
 };
 
 var valuesReceived = {};
 
 const sateliteData = async () => {
   try {
-    //! LIMITE DE REQUISIÇÔES: 3*24 = 72 + 1 = 73
-    //TODO: Criar método para pegar a localização atual com computador e saber a temperatura
     const { latitude, longitude } = await getSateliteData();
-    // getWeatherData(latitude, longitude);
-    //TODO: Colocar o a Temperatura e local do satélite para aparecer na página
     appendInfos(latitude, longitude);
-    //TODO: Acrescentar os atributos de temperatura e de local no objeto data
     const data = { latitude, longitude };
     valuesReceived = data;
   } catch (e) {
@@ -170,6 +158,7 @@ const sateliteData = async () => {
 const btnSend = document
   .querySelector('.btn-infos')
   .addEventListener('click', async () => {
+    //! Mudar para party de Pokemons
     const divFav = document.createElement('div');
     const pFavOne = document.createElement('p');
     const pFavTwo = document.createElement('p');
@@ -192,11 +181,9 @@ const btnGet = document
   });
 
 const callsAPI = () => {
-  var counterCalls = 0;
-  //TODO: Salvar localmente ou no servidor a quantidade de calls
+  //TODO: Salvar localmente ou no servidor os pokemons adquiridos
   sateliteData();
-  counterCalls += 1;
-  // console.log(counterCalls);
+  displayUserData();
 };
 
 callsAPI();
