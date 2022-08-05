@@ -55,7 +55,7 @@ const backgroundType = (mainDiv, type) => {
 
 const displayUserData = async () => {
   const pokemon = await getPokemon();
-  console.log(pokemon);
+  // console.log(pokemon);
 
   const container = document.createElement('div');
   const mainDiv = document.querySelector('.weather');
