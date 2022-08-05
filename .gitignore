@@ -4,6 +4,7 @@
 *.tsbuildinfo
 
 # Directories
+build/
 dist/           # This is the build process will output code.
 node_modules/   # The original reason we're here!
 node_modules
