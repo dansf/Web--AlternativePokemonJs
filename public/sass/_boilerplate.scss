@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background-color: #f0f0f0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 3rem;
+}
+
+button {
+  outline: none;
+  border: none;
+  color: white;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+body {
+  background-color: #f0f0f0;
+}

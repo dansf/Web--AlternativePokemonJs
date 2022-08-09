@@ -1,0 +1,16 @@
+
+/* ========== COMMON CLASSES */
+.pd1{
+padding: 0 1rem;
+}
+
+.button-class {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #4e4e4e;
+  cursor: pointer;
+}
+
+.button-class:hover {
+  transition: ease-in-out 0.3s;
+}

@@ -47,7 +47,7 @@ const getPokemon = async () => {
 const backgroundType = (mainDiv, type) => {
   for (const typePoke in coloursPokemonType) {
     if (type == typePoke) {
-      console.log(`Tipo enviado: ${type} | Tipo da lista: ${typePoke}`)
+      console.log(`Tipo enviado: ${type} | Tipo da lista: ${typePoke}`);
       mainDiv.style.backgroundColor = coloursPokemonType[typePoke];
     }
   }
@@ -84,7 +84,7 @@ const displayUserData = async () => {
   container.append(text);
 };
 
-const appendInfos = (lat, lon) => {
+const appendInfos = async () => {
   const date = new Date();
   const dateNow = date.getDate();
   const monthNow = date.getMonth();
@@ -99,6 +99,7 @@ const appendInfos = (lat, lon) => {
   const pThree = document.createElement('p');
   const spanDate = document.createElement('span');
   const spanHour = document.createElement('span');
+  const spanPokemonName = document.createElement('span');
   box.append(pOne);
   box.append(pTwo);
   pThree.append(spanDate);
@@ -107,23 +108,31 @@ const appendInfos = (lat, lon) => {
   update.prepend(box);
 
   box.classList.add('box');
-  box.style.backgroundColor = getColors();
+  // box.style.backgroundColor = getColors();
   pThree.classList.add('boxThree');
 
-  pOne.textContent = `Latitude: ${lat.toFixed(2)}°`;
-  pTwo.textContent = `Longitude: ${lon.toFixed(2)}°`;
-  spanDate.textContent = `${dateNow}/0${monthNow + 1}/${yearNow} - `;
-  spanHour.textContent = `${hourNow}:${minutesNow}`;
+  // pOne.textContent = `Latitude: ${lat.toFixed(2)}°`;
+  // pTwo.textContent = `Longitude: ${lon.toFixed(2)}°`;
+  const pokemon = await getPokemon();
+  spanPokemonName.textContent = pokemon.name;
+  pOne.textContent = `Um passo para frente e encontrou: `;
+  pOne.append(spanPokemonName);
+  pTwo.textContent = ``;
+  const minutesHour = minutesNow < 10 ? `0${minutesNow}` : minutesNow;
+  const dateYear = dateNow < 10 ? `0${dateNow}` : dateNow;
+  const monthYear = monthNow < 10 ? `0${monthNow + 1}` : monthNow + 1;
+  spanDate.textContent = `${dateYear}/${monthYear}/${yearNow} - `;
+  spanHour.textContent = `${hourNow}:${minutesHour}`;
 };
 
-const getColors = () => {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
+// const getColors = () => {
+//   var letters = '0123456789ABCDEF';
+//   var color = '#';
+//   for (var i = 0; i < 6; i++) {
+//     color += letters[Math.floor(Math.random() * 16)];
+//   }
+//   return color;
+// };
 
 const getSateliteData = async () => {
   const dataSatelite = await fetch(API_URL);
@@ -159,17 +168,17 @@ const btnSend = document
   .querySelector('.btn-infos')
   .addEventListener('click', async () => {
     //! Mudar para party de Pokemons
-    const divFav = document.createElement('div');
-    const pFavOne = document.createElement('p');
-    const pFavTwo = document.createElement('p');
-    const favorite = document.querySelector('.favorites');
-    favorite.append(divFav);
-    divFav.append(pFavOne, pFavTwo);
-    divFav.classList.add('box-favorite');
-    pFavOne.textContent = `Lat.: ${valuesReceived.latitude.toFixed(2)}°`;
-    pFavTwo.textContent = `Lon.: ${valuesReceived.longitude.toFixed(2)}°`;
-    //? Mudar para síncrono
-    await sendToDB(valuesReceived);
+    // const divFav = document.createElement('div');
+    // const pFavOne = document.createElement('p');
+    // const pFavTwo = document.createElement('p');
+    // const favorite = document.querySelector('.party');
+    // favorite.append(divFav);
+    // divFav.append(pFavOne, pFavTwo);
+    // divFav.classList.add('box-favorite');
+    // pFavOne.textContent = `Lat.: ${valuesReceived.latitude.toFixed(2)}°`;
+    // pFavTwo.textContent = `Lon.: ${valuesReceived.longitude.toFixed(2)}°`;
+    // ? Mudar para síncrono
+    // await sendToDB(valuesReceived);
   });
 
 const btnGet = document

@@ -4,55 +4,73 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- LINK CSS -->
-    <link rel="stylesheet" href="style.css" />
+
     <!-- LINK MATERIAL ICONS -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"
     />
-
-    <title>LocationJs</title>
+    <!-- LINK CSS -->
+    <link rel="stylesheet" href="css/index.css" />
+    <title>PokemonJs</title>
   </head>
   <body>
-    <header class="header container">
-      <div class="header__container">
+    <div class="sidebar">
+      <div class="sidebar__container">
         <a href="/public/index.html" class="logo">
-          <h1>Satelite App</h1>
+          <h1>Pokemon</h1>
         </a>
+        <nav class="sidebar__nav">
+          <ul class="sidebar__ul">
+            <li class="sidebar__li">
+              <a href="">
+                <span class="material-symbols-rounded"> grid_view </span>
+                Home
+              </a>
+            </li>
+            <li class="sidebar__li">
+              <a href="">
+                <span class="material-symbols-rounded"> pets </span>
+                Pokemons
+              </a>
+            </li>
+            <li class="sidebar__li">
+              <a href="">
+                <span class="material-symbols-rounded"> person </span>
+                Profile
+              </a>
+            </li>
+            <li class="sidebar__li">
+              <a href="">
+                <span class="material-symbols-rounded"> settings </span>
+                Settings
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </header>
+    </div>
 
-    <main class="main container">
-      <div class="favorites">
-        <h2>Party</h2>
-        <!-- <div class="box-favorite">
-          <p class="lat"><span></span><br /></p>
-          <p class="lon"><span></span></p>
-        </div> -->
-      </div>
-
-      <div class="infos-displayed">
-        <div class="buttons">
-          <button class="btn-infos button-class">Save Info</button>
-          <button class="btn-get button-class">Download Info</button>
+    <main class="main">
+      <div class="btns">
+        <div class="btns__div">
+          <h3 class="title"></h3>
+          <p class="value"></p>
         </div>
-
-        <div class="update">
-          <!-- <h2>New locations</h2> -->
-          <!-- <div class="box">
-            <p class="lat"><span ></span><br /></p>
-            <p class="lon"><span ></span></p>
-            <p> <span class="date"></span> - <span class="hour"></span> </p>
-          </div> -->
+        <div class="btns__div">
+          <h3 class="title"></h3>
+          <p class="value"></p>
         </div>
-      </div>
-      <div class="weather">
-        <h2>Pokemons Found</h2>
-
+        <div class="btns__div">
+          <h3 class="title"></h3>
+          <p class="value"></p>
         </div>
       </div>
     </main>
+
+    <div class="aside">
+      <div class="aside__container"></div>
+    </div>
 
     <script type="module" src="index.js"></script>
   </body>
