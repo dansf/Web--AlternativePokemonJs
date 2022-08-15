@@ -10,68 +10,84 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"
     />
+
+    <!-- LINK FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- LINK CSS -->
     <link rel="stylesheet" href="css/index.css" />
     <title>PokemonJs</title>
   </head>
   <body>
-    <div class="sidebar">
-      <div class="sidebar__container">
-        <a href="/public/index.html" class="logo">
-          <h1>Pokemon</h1>
-        </a>
-        <nav class="sidebar__nav">
-          <ul class="sidebar__ul">
-            <li class="sidebar__li">
-              <a href="">
-                <span class="material-symbols-rounded"> grid_view </span>
-                Home
-              </a>
-            </li>
-            <li class="sidebar__li">
-              <a href="">
-                <span class="material-symbols-rounded"> pets </span>
-                Pokemons
-              </a>
-            </li>
-            <li class="sidebar__li">
-              <a href="">
-                <span class="material-symbols-rounded"> person </span>
-                Profile
-              </a>
-            </li>
-            <li class="sidebar__li">
-              <a href="">
-                <span class="material-symbols-rounded"> settings </span>
-                Settings
-              </a>
-            </li>
-          </ul>
-        </nav>
+    <div class="container">
+      <aside>
+        <div class="top">
+          <div class="logo">
+            <!-- <img src="assets/pokeball.png" alt="Poke" /> -->
+            <h2>Pokemons</h2>
+          </div>
+          <div class="close" id="close-btn">
+            <span class="material-symbols-rounded"> close </span>
+          </div>
+        </div>
+        <!-- ALTERAR PARA NAV COM UL -->
+        <div class="sidebar">
+          <a href="">
+            <span class="material-symbols-rounded"> dashboard </span>
+            <h3>home</h3>
+          </a>
+          <a href="">
+            <span class="material-symbols-rounded"> spa </span>
+            <h3>pokemons</h3>
+          </a>
+          <a href="">
+            <span class="material-symbols-rounded"> atr </span>
+            <h3>team</h3>
+          </a>
+          <a href="">
+            <span class="material-symbols-rounded"> smartphone </span>
+            <h3>pokedex</h3>
+          </a>
+          <a href="">
+            <span class="material-symbols-rounded"> backpack </span>
+            <h3>bag</h3>
+          </a>
+        </div>
+      </aside>
+
+      <main>
+        <div class="main__container">
+          <div class="boxes">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+          </div>
+          <div class="cards">
+            <div class="cardOne"></div>
+            <div class="cardTwo"></div>
+            <div class="cardThree"></div>
+          </div>
+          <div class="status">
+            
+          </div>
+        </div>
+      </main>
+
+      <div class="perfil">
+        <div class="perfil__container">
+          <div class="img"></div>
+          <div class="text">
+            <h2>Dansf</h2>
+            <small>Trainer</small>
+          </div>
+        </div>
       </div>
     </div>
-
-    <main class="main">
-      <div class="btns">
-        <div class="btns__div">
-          <h3 class="title"></h3>
-          <p class="value"></p>
-        </div>
-        <div class="btns__div">
-          <h3 class="title"></h3>
-          <p class="value"></p>
-        </div>
-        <div class="btns__div">
-          <h3 class="title"></h3>
-          <p class="value"></p>
-        </div>
-      </div>
-    </main>
-
-    <div class="aside">
-      <div class="aside__container"></div>
-    </div>
-
     <script type="module" src="index.js"></script>
   </body>
 </html>
