@@ -48,35 +48,29 @@ const backgroundType = (mainDiv, type) => {
   }
 };
 
-const displayUserData = async () => {
+const displayPokemonsFound = async () => {
   const pokemon = await getPokemon();
   console.log(pokemon);
 
-  const container = document.createElement('div');
-  const mainDiv = document.querySelector('.weather');
-  mainDiv.append(container);
-  container.classList.add('user');
-
-  const text = document.createElement('div');
-  text.classList.add('text');
+  const firstPokemon = document.querySelector('.box:nth-child(1)');
   const h2 = document.createElement('h2');
+  const types = document.createElement('ul');
+  const abilities = document.createElement('ul');
 
-  const pokeTypesContainer = document.createElement('div');
-  pokeTypesContainer.classList.add('pokeTypes');
-  h2.textContent = `${pokemon.name}`;
-  const ul = document.createElement('ul');
-  pokeTypesContainer.append(ul);
-
+  h2.textContent = pokemon.name;
   for (let i = 0; i < pokemon.type.length; i++) {
     const li = document.createElement('li');
-    li.textContent = `${pokemon.type[i].type.name}`;
-    ul.append(li);
+    li.textContent = pokemon.type[i].type.name;
+    types.append(li);
   }
 
-  backgroundType(mainDiv, pokemon.type[0].type.name);
+  for (let i = 0; i < pokemon.abilities.length; i++) {
+    const li = document.createElement('li');
+    li.textContent = pokemon.abilities[i].ability.name;
+    abilities.append(li);
+  }
 
-  text.append(h2, pokeTypesContainer);
-  container.append(text);
+  firstPokemon.append(h2, types, abilities);
 };
 
 const appendInfos = async () => {
@@ -87,37 +81,37 @@ const appendInfos = async () => {
   const hourNow = date.getHours();
   const minutesNow = date.getMinutes();
 
-  const update = document.querySelector('.update');
-  const box = document.createElement('div');
-  const pOne = document.createElement('p');
-  const pTwo = document.createElement('p');
-  const pThree = document.createElement('p');
-  const spanDate = document.createElement('span');
-  const spanHour = document.createElement('span');
-  const spanPokemonName = document.createElement('span');
-  box.append(pOne);
-  box.append(pTwo);
-  pThree.append(spanDate);
-  pThree.append(spanHour);
-  box.append(pThree);
-  update.prepend(box);
+  // const update = document.querySelector('.update');
+  // const box = document.createElement('div');
+  // const pOne = document.createElement('p');
+  // const pTwo = document.createElement('p');
+  // const pThree = document.createElement('p');
+  // const spanDate = document.createElement('span');
+  // const spanHour = document.createElement('span');
+  // const spanPokemonName = document.createElement('span');
+  // box.append(pOne);
+  // box.append(pTwo);
+  // pThree.append(spanDate);
+  // pThree.append(spanHour);
+  // box.append(pThree);
+  // update.prepend(box);
 
-  box.classList.add('box');
+  // box.classList.add('box');
   // box.style.backgroundColor = getColors();
-  pThree.classList.add('boxThree');
+  // pThree.classList.add('boxThree');
 
   // pOne.textContent = `Latitude: ${lat.toFixed(2)}°`;
   // pTwo.textContent = `Longitude: ${lon.toFixed(2)}°`;
   const pokemon = await getPokemon();
-  spanPokemonName.textContent = pokemon.name;
-  pOne.textContent = `Um passo para frente e encontrou: `;
-  pOne.append(spanPokemonName);
-  pTwo.textContent = ``;
+  // spanPokemonName.textContent = pokemon.name;
+  // pOne.textContent = `Um passo para frente e encontrou: `;
+  // pOne.append(spanPokemonName);
+  // pTwo.textContent = ``;
   const minutesHour = minutesNow < 10 ? `0${minutesNow}` : minutesNow;
   const dateYear = dateNow < 10 ? `0${dateNow}` : dateNow;
   const monthYear = monthNow < 10 ? `0${monthNow + 1}` : monthNow + 1;
-  spanDate.textContent = `${dateYear}/${monthYear}/${yearNow} - `;
-  spanHour.textContent = `${hourNow}:${minutesHour}`;
+  // spanDate.textContent = `${dateYear}/${monthYear}/${yearNow} - `;
+  // spanHour.textContent = `${hourNow}:${minutesHour}`;
 };
 
 // const getColors = () => {
@@ -186,8 +180,8 @@ const sateliteData = async () => {
 
 const callsAPI = () => {
   //TODO: Salvar localmente ou no servidor os pokemons adquiridos
-  sateliteData();
-  displayUserData();
+  // sateliteData();
+  displayPokemonsFound();
 };
 
 callsAPI();
