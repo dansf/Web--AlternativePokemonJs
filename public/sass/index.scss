@@ -23,6 +23,7 @@ $box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
   aside {
     background-color: #fff;
     padding: 0 2rem;
+    height: max(100vh, 100%);
 
     .top {
       display: flex;
@@ -69,16 +70,16 @@ $box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
   }
 
   main {
-    height: 100vh;
-    background-color: #49f9a6;
+    height: 100%;
+    // background-color: #49f9a6;
 
     .main__container {
-      background-color: green;
+      // background-color: green;
       display: grid;
       grid-template-columns: 1fr;
       grid-row: repeat(3, 1fr);
       row-gap: 3rem;
-      padding: 2rem 1rem;
+      padding: 1rem 0;
       position: relative;
 
       .boxes {
@@ -103,20 +104,47 @@ $box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
           minmax(clamp(100%/ 5 + 0.2%, (1200px - 100vw) * 1000, 100%), 1fr)
         );
         gap: 20px;
+        letter-spacing: 1.5px;
 
         .cardOne,
         .cardTwo,
         .cardThree {
           height: 250px;
           border-radius: 1rem;
-          border: $border;
+          padding: .75rem 1.3rem;
+
+          h2{
+            font-size: 1.2rem;
+          }
         }
+
+        .cardOne{
+          color: #fff;
+          background-color: #F9499C;
+        }
+
+        .cardTwo{
+          color: #fff;
+          background-color: #49f9a6;
+        }
+
+        .cardThree{
+          background-color: #fff;
+        }
+      }
+
+      .status {
+        height: 240px;
+        border-radius: 1rem;
+        background-color: #fff;
+        padding: .75rem 1.3rem;
+        letter-spacing: 1.5px;
       }
     }
   }
 
   .perfil {
-    height: 100vh;
+    height: max(100%, 100vh);
     background-color: #fff;
 
     &__container {

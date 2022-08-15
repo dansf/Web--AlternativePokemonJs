@@ -1,10 +1,5 @@
 const API_URL = 'https://api.wheretheiss.at/v1/satellites/25544';
 
-// if (!('geolocation' in navigator)) {
-//   window.alert('Geolocation unaveliable.');
-//   console.log('Geolocation unaveliable.');
-// }
-
 const coloursPokemonType = {
   normal: '#A8A77A',
   fire: '#EE8130',
@@ -55,7 +50,7 @@ const backgroundType = (mainDiv, type) => {
 
 const displayUserData = async () => {
   const pokemon = await getPokemon();
-  // console.log(pokemon);
+  console.log(pokemon);
 
   const container = document.createElement('div');
   const mainDiv = document.querySelector('.weather');
@@ -164,30 +159,30 @@ const sateliteData = async () => {
   }
 };
 
-const btnSend = document
-  .querySelector('.btn-infos')
-  .addEventListener('click', async () => {
-    //! Mudar para party de Pokemons
-    // const divFav = document.createElement('div');
-    // const pFavOne = document.createElement('p');
-    // const pFavTwo = document.createElement('p');
-    // const favorite = document.querySelector('.party');
-    // favorite.append(divFav);
-    // divFav.append(pFavOne, pFavTwo);
-    // divFav.classList.add('box-favorite');
-    // pFavOne.textContent = `Lat.: ${valuesReceived.latitude.toFixed(2)}°`;
-    // pFavTwo.textContent = `Lon.: ${valuesReceived.longitude.toFixed(2)}°`;
-    // ? Mudar para síncrono
-    // await sendToDB(valuesReceived);
-  });
+// const btnSend = document
+//   .querySelector('.btn-infos')
+//   .addEventListener('click', async () => {
+//     ! Mudar para party de Pokemons
+//     const divFav = document.createElement('div');
+//     const pFavOne = document.createElement('p');
+//     const pFavTwo = document.createElement('p');
+//     const favorite = document.querySelector('.party');
+//     favorite.append(divFav);
+//     divFav.append(pFavOne, pFavTwo);
+//     divFav.classList.add('box-favorite');
+//     pFavOne.textContent = `Lat.: ${valuesReceived.latitude.toFixed(2)}°`;
+//     pFavTwo.textContent = `Lon.: ${valuesReceived.longitude.toFixed(2)}°`;
+//     ? Mudar para síncrono
+//     await sendToDB(valuesReceived);
+//   });
 
-const btnGet = document
-  .querySelector('.btn-get')
-  .addEventListener('click', async () => {
-    const res = await fetch('/api', { method: 'GET' });
-    const resData = await res.json();
-    console.log(resData);
-  });
+// const btnGet = document
+//   .querySelector('.btn-get')
+//   .addEventListener('click', async () => {
+//     const res = await fetch('/api', { method: 'GET' });
+//     const resData = await res.json();
+//     console.log(resData);
+//   });
 
 const callsAPI = () => {
   //TODO: Salvar localmente ou no servidor os pokemons adquiridos

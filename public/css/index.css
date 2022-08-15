@@ -59,6 +59,7 @@ body {
 .container aside {
   background-color: #fff;
   padding: 0 2rem;
+  height: max(100vh, 100%);
 }
 .container aside .top {
   display: flex;
@@ -97,16 +98,14 @@ body {
   font-weight: 500;
 }
 .container main {
-  height: 100vh;
-  background-color: #49f9a6;
+  height: 100%;
 }
 .container main .main__container {
-  background-color: green;
   display: grid;
   grid-template-columns: 1fr;
   grid-row: repeat(3, 1fr);
   row-gap: 3rem;
-  padding: 2rem 1rem;
+  padding: 1rem 0;
   position: relative;
 }
 .container main .main__container .boxes {
@@ -123,16 +122,40 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(clamp(20.2%, (1200px - 100vw) * 1000, 100%), 1fr));
   gap: 20px;
+  letter-spacing: 1.5px;
 }
 .container main .main__container .cards .cardOne,
 .container main .main__container .cards .cardTwo,
 .container main .main__container .cards .cardThree {
   height: 250px;
   border-radius: 1rem;
-  border: 1px solid red;
+  padding: 0.75rem 1.3rem;
+}
+.container main .main__container .cards .cardOne h2,
+.container main .main__container .cards .cardTwo h2,
+.container main .main__container .cards .cardThree h2 {
+  font-size: 1.2rem;
+}
+.container main .main__container .cards .cardOne {
+  color: #fff;
+  background-color: #F9499C;
+}
+.container main .main__container .cards .cardTwo {
+  color: #fff;
+  background-color: #49f9a6;
+}
+.container main .main__container .cards .cardThree {
+  background-color: #fff;
+}
+.container main .main__container .status {
+  height: 240px;
+  border-radius: 1rem;
+  background-color: #fff;
+  padding: 0.75rem 1.3rem;
+  letter-spacing: 1.5px;
 }
 .container .perfil {
-  height: 100vh;
+  height: max(100%, 100vh);
   background-color: #fff;
 }
 .container .perfil__container {
