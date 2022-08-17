@@ -1,4 +1,5 @@
 const API_URL = 'https://api.wheretheiss.at/v1/satellites/25544';
+const API_POKEMON = `https://pokeapi.co/api/v2/pokemon/?limit=1154`;
 
 const coloursPokemonType = {
   normal: '#A8A77A',
@@ -25,7 +26,7 @@ const getPokemon = async () => {
   const maxPokemons = 1154;
   const randomPoke = Math.random() * maxPokemons;
 
-  const pokeData = await fetch('/poke');
+  const pokeData = await fetch(API_POKEMON);
   const pokeDataRes = await pokeData.json();
   const pokeInfo = await fetch(pokeDataRes.results[randomPoke.toFixed(0)].url);
   const pokeInfoRes = await pokeInfo.json();
@@ -39,11 +40,11 @@ const getPokemon = async () => {
   return Pokemon;
 };
 
-const backgroundType = (mainDiv, type) => {
+const backgroundType = type => {
   for (const typePoke in coloursPokemonType) {
     if (type == typePoke) {
       console.log(`Tipo enviado: ${type} | Tipo da lista: ${typePoke}`);
-      mainDiv.style.backgroundColor = coloursPokemonType[typePoke];
+      return coloursPokemonType[typePoke];
     }
   }
 };
@@ -51,15 +52,31 @@ const backgroundType = (mainDiv, type) => {
 const displayPokemonsFound = async () => {
   for (let i = 1; i <= 3; i++) {
     const pokemon = await getPokemon();
-    console.log(pokemon);
+    // console.log(pokemon);
+
     const appendPokemon = document.querySelector(`.box:nth-child(${i})`);
-    console.log(appendPokemon);
     const h2 = document.createElement('h2');
     const types = document.createElement('ul');
     const abilities = document.createElement('ul');
 
+    appendPokemon.addEventListener('mouseover', () => {
+      //! Trocar o tipo de Listener
+      appendPokemon.style.boxShadow = `-10px 10px 1px .5px ${backgroundType(
+        pokemon.type[0].type.name,
+      )}`;
+      appendPokemon.style.left = '5px';
+      appendPokemon.style.bottom = '5px';
+    });
+
+    appendPokemon.addEventListener('mouseout', () => {
+      //! Trocar o tipo de Listener
+      appendPokemon.style.boxShadow = null;
+      appendPokemon.style.left = null;
+      appendPokemon.style.bottom = null;
+    });
+
     h2.textContent = pokemon.name.split('-')[0];
-    // appendPokemon.append(h2);
+
     for (let i = 0; i < pokemon.type.length; i++) {
       const li = document.createElement('li');
       li.textContent = pokemon.type[i].type.name;

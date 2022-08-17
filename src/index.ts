@@ -54,14 +54,14 @@ app.get('/api', (req: Request, res: Response) => {
   });
 });
 
-app.get('/poke', async (req: Request, res: Response) => {
-  try {
-    const API_POKEMON = `https://pokeapi.co/api/v2/pokemon/?limit=1154`;
-    const resPoke = await fetch(API_POKEMON);
-    const jsonPoke = await resPoke.json();
-    // console.log(jsonPoke);
-    res.json(jsonPoke);
-  } catch (e) {
-    console.log(e);
-  }
-});
+// app.get('/poke', async (req: Request, res: Response) => {
+//   try {
+//     const API_POKEMON = `https://pokeapi.co/api/v2/pokemon/?limit=1154`;
+//     const resPoke = await fetch(API_POKEMON);
+//     const jsonPoke = await resPoke.json();
+//     // console.log(jsonPoke);
+//     res.json(jsonPoke);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
