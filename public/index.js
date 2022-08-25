@@ -22,6 +22,30 @@ const coloursPokemonType = {
   fairy: '#D685AD',
 };
 
+const backgroundType = type => {
+  for (const typePoke in coloursPokemonType) {
+    if (type == typePoke) return coloursPokemonType[typePoke];
+  }
+};
+
+const mouseoverEvent = (appendPokemon, pokemon) => {
+  appendPokemon.addEventListener('mouseover', () => {
+    //! Trocar o tipo de Listener
+    appendPokemon.style.boxShadow = `-10px 10px 1px .5px ${backgroundType(
+      pokemon.type[0].type.name,
+    )}`;
+    appendPokemon.style.left = '5px';
+    appendPokemon.style.bottom = '5px';
+  });
+
+  appendPokemon.addEventListener('mouseout', () => {
+    //! Trocar o tipo de Listener
+    appendPokemon.style.boxShadow = null;
+    appendPokemon.style.left = null;
+    appendPokemon.style.bottom = null;
+  });
+};
+
 const getPokemon = async () => {
   const maxPokemons = 1154;
   const randomPoke = Math.random() * maxPokemons;
@@ -30,23 +54,20 @@ const getPokemon = async () => {
   const pokeDataRes = await pokeData.json();
   const pokeInfo = await fetch(pokeDataRes.results[randomPoke.toFixed(0)].url);
   const pokeInfoRes = await pokeInfo.json();
+  // console.log(pokeInfoRes.forms[0].url);
+  const pokeFormUrl = await fetch(pokeInfoRes.forms[0].url);
+  const pokeFormUrlRes = await pokeFormUrl.json();
+  // console.log(pokeFormUrlRes);
 
   const Pokemon = {
     name: pokeInfoRes.name,
     type: pokeInfoRes.types,
     abilities: pokeInfoRes.abilities,
+    img: pokeInfoRes.sprites.front_default,
+    mega: pokeFormUrlRes.is_mega,
   };
 
   return Pokemon;
-};
-
-const backgroundType = type => {
-  for (const typePoke in coloursPokemonType) {
-    if (type == typePoke) {
-      console.log(`Tipo enviado: ${type} | Tipo da lista: ${typePoke}`);
-      return coloursPokemonType[typePoke];
-    }
-  }
 };
 
 const displayPokemonsFound = async () => {
@@ -54,61 +75,61 @@ const displayPokemonsFound = async () => {
     const pokemon = await getPokemon();
     // console.log(pokemon);
 
-    const appendPokemon = document.querySelector(`.box:nth-child(${i})`);
-    const h2 = document.createElement('h2');
-    const types = document.createElement('ul');
-    const abilities = document.createElement('ul');
+    if (pokemon.mega) pokemon = await getPokemon();
+    else {
+      const appendPokemon = document.querySelector(`.box:nth-child(${i})`);
+      const boxInfos = document.createElement('div');
+      const h2 = document.createElement('h2');
+      const types = document.createElement('ul');
+      const abilities = document.createElement('ul');
+      const img = document.createElement('img');
 
-    appendPokemon.addEventListener('mouseover', () => {
-      //! Trocar o tipo de Listener
-      appendPokemon.style.boxShadow = `-10px 10px 1px .5px ${backgroundType(
-        pokemon.type[0].type.name,
-      )}`;
-      appendPokemon.style.left = '5px';
-      appendPokemon.style.bottom = '5px';
-    });
+      h2.textContent = pokemon.name.split('-')[0];
 
-    appendPokemon.addEventListener('mouseout', () => {
-      //! Trocar o tipo de Listener
-      appendPokemon.style.boxShadow = null;
-      appendPokemon.style.left = null;
-      appendPokemon.style.bottom = null;
-    });
+      mouseoverEvent(appendPokemon, pokemon);
 
-    h2.textContent = pokemon.name.split('-')[0];
+      for (let i = 0; i < pokemon.type.length; i++) {
+        const li = document.createElement('li');
+        li.textContent = pokemon.type[i].type.name;
+        types.append(li);
+      }
 
-    for (let i = 0; i < pokemon.type.length; i++) {
-      const li = document.createElement('li');
-      li.textContent = pokemon.type[i].type.name;
-      types.append(li);
+      for (let i = 0; i < pokemon.abilities.length; i++) {
+        const li = document.createElement('li');
+        const small = document.createElement('small');
+        small.textContent = pokemon.abilities[i].ability.name;
+        li.append(small);
+        abilities.append(li);
+      }
+
+      img.src = pokemon.img;
+      boxInfos.append(h2, types, abilities);
+      appendPokemon.append(img, boxInfos);
     }
-
-    for (let i = 0; i < pokemon.abilities.length; i++) {
-      const li = document.createElement('li');
-      const small = document.createElement('small');
-      small.textContent = pokemon.abilities[i].ability.name;
-      li.append(small);
-      abilities.append(li);
-    }
-
-    appendPokemon.append(h2, types, abilities);
   }
 };
 
-// const getColors = () => {
-//   var letters = '0123456789ABCDEF';
-//   var color = '#';
-//   for (var i = 0; i < 6; i++) {
-//     color += letters[Math.floor(Math.random() * 16)];
-//   }
-//   return color;
-// };
+document.querySelector('.btn-rollPokemon').addEventListener('click', () => {
+  const boxes = document.querySelectorAll('.box');
+  boxes.forEach(box => {
+    var child = box.lastElementChild;
+    var flag = true;
 
-const getSateliteData = async () => {
-  const dataSatelite = await fetch(API_URL);
-  const resSatelite = await dataSatelite.json();
-  return resSatelite;
-};
+    while (child && flag) {
+      box.removeChild(box.lastElementChild);
+      child = box.lastElementChild;
+    }
+
+    flag = false;
+  });
+  displayPokemonsFound();
+});
+
+//TODO: Salvar localmente ou no servidor os pokemons adquiridos
+// sateliteData();
+displayPokemonsFound();
+
+// =========== SATELLITE SECTION ================
 
 const sendToDB = async data => {
   const options = {
@@ -119,6 +140,12 @@ const sendToDB = async data => {
 
   //* Fetch abaixo representa o envio das informações através do caminho "/api"
   fetch('/api', options);
+};
+
+const getSateliteData = async () => {
+  const dataSatelite = await fetch(API_URL);
+  const resSatelite = await dataSatelite.json();
+  return resSatelite;
 };
 
 var valuesReceived = {};
@@ -158,13 +185,3 @@ const sateliteData = async () => {
 //     const resData = await res.json();
 //     console.log(resData);
 //   });
-
-const callsAPI = () => {
-  //TODO: Salvar localmente ou no servidor os pokemons adquiridos
-  // sateliteData();
-  displayPokemonsFound();
-};
-
-callsAPI();
-// window.setInterval(callsAPI, 5000);
-// window.setInterval(callsAPI,1800000);
