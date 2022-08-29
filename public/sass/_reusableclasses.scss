@@ -13,3 +13,8 @@
 .button-class:hover {
   transition: ease-in-out 0.3s;
 }
+
+.show-modal {
+  z-index: 100 !important ;
+  opacity: 1 !important;
+}

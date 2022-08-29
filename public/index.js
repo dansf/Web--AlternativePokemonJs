@@ -113,14 +113,11 @@ document.querySelector('.btn-rollPokemon').addEventListener('click', () => {
   const boxes = document.querySelectorAll('.box');
   boxes.forEach(box => {
     var child = box.lastElementChild;
-    var flag = true;
 
-    while (child && flag) {
+    while (child) {
       box.removeChild(box.lastElementChild);
       child = box.lastElementChild;
     }
-
-    flag = false;
   });
   displayPokemonsFound();
 });
@@ -128,6 +125,60 @@ document.querySelector('.btn-rollPokemon').addEventListener('click', () => {
 //TODO: Salvar localmente ou no servidor os pokemons adquiridos
 // sateliteData();
 displayPokemonsFound();
+
+// =========== INTERACTIONS POKEMON SECTION ================
+const box = document.querySelectorAll('.box');
+const modal = document.querySelector('.modal');
+const closeBtn = document.querySelector('.close');
+
+box.forEach(event => {
+  event.addEventListener('click', () => {
+    modal.classList.add('show-modal');
+
+    const name = event.querySelector('div > h2');
+    const img = event.querySelector('img').src;
+    const modalImg = document.querySelector(
+      '.modal__container>.modal__info>img',
+    );
+    const modalName = document.querySelector(
+      '.modal__container>.modal__info>.text__info>h3',
+    );
+    const type = event.querySelector('div>ul>li:nth-of-type(1)');
+    const color = backgroundType(type.textContent);
+
+    modal.style.backgroundColor = color;
+    modalName.innerText = name.textContent;
+    modalImg.src = img;
+  });
+});
+
+closeBtn.addEventListener('click', () => modal.classList.remove('show-modal'));
+
+const capture = document.querySelectorAll('.actions__boxes');
+capture.forEach(actionsBox => {
+  actionsBox.addEventListener('click', () => {
+    switch (actionsBox.textContent) {
+      case 'Feed':
+        console.log('Pokemon feeded');
+        break;
+      case 'Pet':
+        console.log('Pokemon receive pet, he likes');
+        break;
+      case 'Capture':
+        console.log("Pokemons captured, what's the odds!");
+        break;
+      case 'Leave':
+        console.log('You left safely');
+        modal.classList.remove('show-modal');
+        break;
+      default:
+        console.log('Something strange happend');
+        break;
+    }
+  });
+});
+
+// capture.addEventListener('click', () => console.log('Funcioando'));
 
 // =========== SATELLITE SECTION ================
 
