@@ -59,6 +59,10 @@ body {
   opacity: 1 !important;
 }
 
+.feed::before {
+  width: 50% !important;
+}
+
 .modal {
   height: 100vh;
   width: 100%;
@@ -115,6 +119,18 @@ body {
   height: 0.7rem;
   background-color: hsla(0deg, 7%, 19%, 0.1);
   border-radius: 0.5rem;
+  position: relative;
+}
+.modal__container .affection__bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  background-color: #ff0000;
+  height: 0.7rem;
+  border-radius: 0.5rem;
+  transition: ease-out 0.5s;
 }
 .modal__container .actions {
   display: grid;
@@ -286,6 +302,23 @@ body {
   background-color: #fff;
   padding: 0.75rem 1.3rem;
   letter-spacing: 1.5px;
+}
+.container main .main__container .status ul {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+}
+.container main .main__container .status ul li {
+  opacity: 0;
+  display: grid;
+  row-gap: 1rem;
+  justify-items: center;
+}
+.container main .main__container .status ul li img {
+  width: 100px;
+  height: 100px;
+}
+.container main .main__container .status ul li h4 {
+  text-transform: capitalize;
 }
 .container .perfil {
   height: max(100%, 100vh);

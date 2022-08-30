@@ -50,7 +50,7 @@ $border: 1px solid #ff0000;
           text-transform: capitalize;
         }
 
-        .types__info{
+        .types__info {
           display: grid;
           grid-template-columns: repeat(2, auto);
         }
@@ -70,6 +70,19 @@ $border: 1px solid #ff0000;
         height: 0.7rem;
         background-color: hsla(0, 7%, 19%, 0.1);
         border-radius: 0.5rem;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0;
+          background-color: #ff0000;
+          height: 0.7rem;
+          border-radius: 0.5rem;
+          transition: ease-out 0.5s;
+        }
       }
     }
 
@@ -289,6 +302,27 @@ $border: 1px solid #ff0000;
         background-color: #fff;
         padding: 0.75rem 1.3rem;
         letter-spacing: 1.5px;
+
+        ul {
+          display: grid;
+          grid-template-columns: repeat(6, auto);
+
+          li {
+            opacity: 0;
+            display: grid;
+            row-gap: 1rem;
+            justify-items: center;
+
+            img {
+              width: 100px;
+              height: 100px;
+            }
+
+            h4 {
+              text-transform: capitalize;
+            }
+          }
+        }
       }
     }
   }

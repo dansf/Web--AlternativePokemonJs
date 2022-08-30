@@ -129,7 +129,9 @@ displayPokemonsFound();
 // =========== INTERACTIONS POKEMON SECTION ================
 const box = document.querySelectorAll('.box');
 const modal = document.querySelector('.modal');
-const closeBtn = document.querySelector('.close');
+const closeBtn = document
+  .querySelector('.close')
+  .addEventListener('click', () => modal.classList.remove('show-modal'));
 
 box.forEach(event => {
   event.addEventListener('click', () => {
@@ -152,20 +154,54 @@ box.forEach(event => {
   });
 });
 
-closeBtn.addEventListener('click', () => modal.classList.remove('show-modal'));
+const feedPokemon = () => {
+  const affectionBar = document.querySelector('.affection__bar');
+  const mathRandom = Math.round(Math.random() * 100);
+  console.log(mathRandom);
+
+  affectionBar.classList.add('feed');
+};
+
+const capturePokemon = () => {};
 
 const capture = document.querySelectorAll('.actions__boxes');
+const captureChance = true;
+
 capture.forEach(actionsBox => {
   actionsBox.addEventListener('click', () => {
     switch (actionsBox.textContent) {
       case 'Feed':
         console.log('Pokemon feeded');
+        feedPokemon();
         break;
       case 'Pet':
         console.log('Pokemon receive pet, he likes');
         break;
       case 'Capture':
         console.log("Pokemons captured, what's the odds!");
+        if (captureChance) {
+          modal.classList.remove('show-modal');
+          const pokemonTeam = document.querySelector('.team');
+          const pokemonSlot = pokemonTeam.querySelectorAll('li');
+          const pokemonImg = document.querySelector('.modal__info > img').src;
+          const pokemonModalName = document.querySelector('.text__info > h3');
+          // console.log(`${pokemonImg} + ${pokemonModalName.textContent}`);
+
+          for (let i = 0; i < pokemonSlot.length; i++) {
+            const pokemonSlotImg = pokemonSlot[i].querySelector('img');
+            const pokemonSlotName = pokemonSlot[i].querySelector('h4');
+
+            if (pokemonSlotImg.src == "" && pokemonSlotName == "") {
+              console.log("Funcionando!");
+              pokemonSlot[i].style.opacity = '1';
+              pokemonSlotImg.src = pokemonImg;
+              pokemonSlotName.textContent = pokemonModalName.textContent;
+            }
+            break;
+          }
+
+          // console.log(pokemonSlot);
+        }
         break;
       case 'Leave':
         console.log('You left safely');
@@ -177,8 +213,6 @@ capture.forEach(actionsBox => {
     }
   });
 });
-
-// capture.addEventListener('click', () => console.log('Funcioando'));
 
 // =========== SATELLITE SECTION ================
 
